@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freaky.lb - Bold Fashion for Rebels</title>
+    <meta name="description" content="Discover unique, edgy fashion at Freaky.lb. Premium streetwear and accessories that help you express your authentic self. Made in Lebanon with passion.">
+    <meta name="author" content="Freaky.lb">
+    
+    <meta property="og:title" content="Freaky.lb - Bold Fashion for Rebels">
+    <meta property="og:description" content="Discover unique, edgy fashion at Freaky.lb. Premium streetwear and accessories that help you express your authentic self.">
+    <meta property="og:type" content="website">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --background: hsl(222, 15%, 8%);
+            --foreground: hsl(0, 0%, 95%);
+            --card: hsl(222, 15%, 12%);
+            --card-foreground: hsl(0, 0%, 95%);
+            --primary: hsl(280, 100%, 60%);
+            --primary-foreground: hsl(0, 0%, 5%);
+            --secondary: hsl(222, 15%, 18%);
+            --secondary-foreground: hsl(0, 0%, 95%);
+            --muted: hsl(222, 15%, 18%);
+            --muted-foreground: hsl(0, 0%, 65%);
+            --accent: hsl(172, 100%, 50%);
+            --accent-foreground: hsl(0, 0%, 5%);
+            --border: hsl(222, 15%, 20%);
+            --radius: 0.75rem;
+            
+            --gradient-brand: linear-gradient(135deg, hsl(280, 100%, 60%), hsl(320, 100%, 55%));
+            --gradient-accent: linear-gradient(135deg, hsl(172, 100%, 50%), hsl(192, 100%, 45%));
+            --gradient-dark: linear-gradient(180deg, hsl(222, 15%, 12%), hsl(222, 15%, 8%));
+            --glow-primary: 0 0 30px hsl(280, 100%, 60%, 0.3);
+            --glow-accent: 0 0 20px hsl(172, 100%, 50%, 0.4);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background: var(--background);
+            color: var(--foreground);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.5;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: var(--gradient-dark);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 4rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: var(--gradient-brand);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--muted-foreground);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--foreground);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-nav {
+            display: none;
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .mobile-nav.active {
+            display: block;
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 0.5rem;
+            color: var(--muted-foreground);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+
+        .mobile-nav a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 4rem;
+            min-height: calc(100vh - 4rem);
+        }
+
+        .page {
+            display: none;
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: bold;
+            background: var(--gradient-brand);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--muted-foreground);
+        }
+
+        /* Hero Carousel */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            overflow: hidden;
+            border-radius: var(--radius);
+            margin-bottom: 3rem;
+        }
+
+        .carousel-track {
+            display: flex;
+            width: 600%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            min-width: 16.666%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide-content {
+            text-align: center;
+            color: white;
+        }
+
+        .slide-title {
+            font-size: 3rem;
+            font-weight: bold;
+            background: var(--gradient-brand);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .slide-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .carousel-btn:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .carousel-btn.prev {
+            left: 1rem;
+        }
+
+        .carousel-btn.next {
+            right: 1rem;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .dot.active {
+            background: var(--primary);
+            box-shadow: var(--glow-primary);
+        }
+
+        /* Shop Grid */
+        .shop-grid {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .featured-products {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .regular-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: var(--transition-smooth);
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--glow-primary);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .featured-products .product-image {
+            height: 350px;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--foreground);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-description {
+            color: var(--muted-foreground);
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: bold;
+            background: var(--gradient-accent);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card);
+            padding: 2rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--foreground);
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--foreground);
+            font-size: 1rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px hsl(280, 100%, 60%, 0.2);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--gradient-brand);
+            color: var(--primary-foreground);
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-primary);
+        }
+
+        /* Information Cards */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: var(--card);
+            padding: 2rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            transition: var(--transition-smooth);
+        }
+
+        .info-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .info-card h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-card p {
+            color: var(--muted-foreground);
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .slide-title {
+                font-size: 2rem;
+            }
+            
+            .slide-subtitle {
+                font-size: 1rem;
+            }
+            
+            .featured-products {
+                grid-template-columns: 1fr;
+            }
+            
+            .regular-products {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="showPage('home')">Freaky.lb</a>
+            
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('home')" class="nav-link active">Home</a></li>
+                <li><a href="#" onclick="showPage('shop')" class="nav-link">Shop</a></li>
+                <li><a href="#" onclick="showPage('contacts')" class="nav-link">Contacts</a></li>
+                <li><a href="#" onclick="showPage('information')" class="nav-link">Information</a></li>
+            </ul>
+            
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </div>
+        
+        <div class="mobile-nav" id="mobileNav">
+            <a href="#" onclick="showPage('home'); toggleMobileMenu()">Home</a>
+            <a href="#" onclick="showPage('shop'); toggleMobileMenu()">Shop</a>
+            <a href="#" onclick="showPage('contacts'); toggleMobileMenu()">Contacts</a>
+            <a href="#" onclick="showPage('information'); toggleMobileMenu()">Information</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <div class="page-header">
+                <h1 class="page-title">Welcome to Freaky.lb</h1>
+                <p class="page-subtitle">Unleash your style with our bold fashion collection</p>
+            </div>
+
+            <!-- Hero Carousel -->
+            <div class="carousel-container">
+                <div class="carousel-track" id="carouselTrack">
+                    <div class="carousel-slide">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' fill='%23333'%3E%3Crect width='800' height='600' fill='%23222'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-size='40' fill='%23888'%3ESlide 1%3C/text%3E%3C/svg%3E" alt="Unleash Your Style" class="slide-image">
+                        <div class="slide-overlay">
+                            <div class="slide-content">
+                                <h2 class="slide-title">Unleash Your Style</h2>
+                                <p class="slide-subtitle">Discover the latest in edgy fashion</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' fill='%23333'%3E%3Crect width='800' height='600' fill='%23444'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-size='40' fill='%23888'%3ESlide 2%3C/text%3E%3C/svg%3E" alt="Be Different" class="slide-image">
+                        <div class="slide-overlay">
+                            <div class="slide-content">
+                                <h2 class="slide-title">Be Different</h2>
+                                <p class="slide-subtitle">Stand out with our unique collection</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' fill='%23333'%3E%3Crect width='800' height='600' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-size='40' fill='%23888'%3ESlide 3%3C/text%3E%3C/svg%3E" alt="Express Yourself" class="slide-image">
+                        <div class="slide-overlay">
+                            <div class="slide-content">
+                                <h2 class="slide-title">Express Yourself</h2>
+                                <p class="slide-subtitle">Fashion that speaks your language</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' fill='%23333'%3E%3Crect width='800' height='600' fill='%23555'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-size='40' fill='%23888'%3ESlide 4%3C/text%3E%3C/svg%3E" alt="Urban Vibes" class="slide-image">
+                        <div class="slide-overlay">
+                            <div class="slide-content">
+                                <h2 class="slide-title">Urban Vibes</h2>
+                                <p class="slide-subtitle">Street style redefined</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' fill='%23333'%3E%3Crect width='800' height='600' fill='%23666'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-size='40' fill='%23888'%3ESlide 5%3C/text%3E%3C/svg%3E" alt="Next Level" class="slide-image">
+                        <div class="slide-overlay">
+                            <div class="slide-content">
+                                <h2 class="slide-title">Next Level</h2>
+                                <p class="slide-subtitle">Push boundaries with Freaky.lb</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' fill='%23333'%3E%3Crect width='800' height='600' fill='%23777'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-size='40' fill='%23888'%3ESlide 6%3C/text%3E%3C/svg%3E" alt="Make Waves" class="slide-image">
+                        <div class="slide-overlay">
+                            <div class="slide-content">
+                                <h2 class="slide-title">Make Waves</h2>
+                                <p class="slide-subtitle">Your style, your statement</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="carousel-btn prev" onclick="prevSlide()">‹</button>
+                <button class="carousel-btn next" onclick="nextSlide()">›</button>
+                
+                <div class="carousel-dots">
+                    <button class="dot active" onclick="goToSlide(0)"></button>
+                    <button class="dot" onclick="goToSlide(1)"></button>
+                    <button class="dot" onclick="goToSlide(2)"></button>
+                    <button class="dot" onclick="goToSlide(3)"></button>
+                    <button class="dot" onclick="goToSlide(4)"></button>
+                    <button class="dot" onclick="goToSlide(5)"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shop Page -->
+        <div id="shop" class="page">
+            <div class="page-header">
+                <h1 class="page-title">Shop</h1>
+                <p class="page-subtitle">Discover our bold collection</p>
+            </div>
+
+            <div class="shop-grid">
+                <!-- Featured Products (2 horizontal) -->
+                <div class="featured-products">
+                    <div class="product-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='350' fill='%23333'%3E%3Crect width='400' height='350' fill='%23222'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-size='20' fill='%23888'%3EProduct 1%3C/text%3E%3C/svg%3E" alt="Freaky Streetwear Hoodie" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-title">Freaky Streetwear Hoodie</h3>
+                            <p class="product-description">Bold and comfortable hoodie perfect for making a statement on the streets.</p>
+                            <p class="product-price">$89.99</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='350' fill='%23333'%3E%3Crect width='400' height='350' fill='%23444'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-size='20' fill='%23888'%3EProduct 2%3C/text%3E%3C/svg%3E" alt="Rebel Graphic Tee" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-title">Rebel Graphic Tee</h3>
+                            <p class="product-description">Express your rebellion with this unique graphic design t-shirt.</p>
+                            <p class="product-price">$45.99</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regular Products -->
+                <div class="regular-products">
+                    <div class="product-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' fill='%23333'%3E%3Crect width='400' height='250' fill='%23333'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-size='16' fill='%23888'%3EProduct 3%3C/text%3E%3C/svg%3E" alt="Urban Bomber Jacket" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-title">Urban Bomber Jacket</h3>
+                            <p class="product-description">Stylish bomber jacket for the urban warrior.</p>
+                            <p class="product-price">$129.99</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' fill='%23333'%3E%3Crect width='400' height='250' fill='%23555'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-size='16' fill='%23888'%3EProduct 4%3C/text%3E%3C/svg%3E" alt="Statement Accessories" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-title">Statement Accessories</h3>
+                            <p class="product-description">Complete your look with our bold accessories collection.</p>
+                            <p class="product-price">$25.99</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' fill='%23333'%3E%3Crect width='400' height='250' fill='%23666'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-size='16' fill='%23888'%3EProduct 5%3C/text%3E%3C/svg%3E" alt="Edgy Denim Jeans" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-title">Edgy Denim Jeans</h3>
+                            <p class="product-description">Premium denim with a rebellious twist and perfect fit.</p>
+                            <p class="product-price">$99.99</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' fill='%23333'%3E%3Crect width='400' height='250' fill='%23777'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-size='16' fill='%23888'%3EProduct 6%3C/text%3E%3C/svg%3E" alt="Alternative Sneakers" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-title">Alternative Sneakers</h3>
+                            <p class="product-description">Step up your shoe game with these unique alternative sneakers.</p>
+                            <p class="product-price">$149.99</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contacts Page -->
+        <div id="contacts" class="page">
+            <div class="page-header">
+                <h1 class="page-title">Contacts</h1>
+                <p class="page-subtitle">Get in touch with us 
+                   <div> Email: Simonhawat3@gmail.com</div><div>
+                    Phone: +961 81 554 266
+                </div></p>
+            </div>
+                </div>
+                
+        </div>
+
+        <!-- Information Page -->
+        <div id="information" class="page">
+            <div class="page-header">
+                <h1 class="page-title">Information</h1>
+                <p class="page-subtitle">Learn more about Freaky.lb</p>
+            </div>
+
+            <div class="info-cards">
+                <div class="info-card">
+                    <h3>About Us</h3>
+                    <p>Freaky.lb is a bold fashion brand born in Lebanon, dedicated to helping rebels and free spirits express their authentic selves through unique, edgy designs. We believe fashion should be a form of self-expression, not conformity.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>Our Mission</h3>
+                    <p>To empower individuals to break free from conventional fashion norms and embrace their unique style. We create premium streetwear that make a statement and inspire confidence.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>Quality Promise</h3>
+                    <p>Every piece in our collection is crafted with premium materials and attention to detail. We're committed to delivering exceptional quality that stands the test of time and frequent wear.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>Shipping & Returns</h3>
+                    <p>We offer only in lebanon shipping with tracking. No refunds unless we made a mistake in the order that you purchased and deposit is 50% of your order. Our customer service team is here to help with any questions or concerns.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Navigation functionality
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation active state
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            event.target.classList.add('active');
+        }
+
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('active');
+        }
+
+        // Carousel functionality
+        let currentSlide = 0;
+        const totalSlides = 6;
+
+        function updateCarousel() {
+            const track = document.getElementById('carouselTrack');
+            const dots = document.querySelectorAll('.dot');
+            
+            track.style.transform = `translateX(-${currentSlide * (100/6)}%)`;
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            updateCarousel();
+        }
+
+        // Auto-advance carousel
+        setInterval(nextSlide, 5000);
+
+        // Contact form handling
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            // Here you would typically send the data to a server
+            alert(`Thank you ${data.name}! Your message has been sent. We'll get back to you soon.`);
+            
+            // Reset form
+            event.target.reset();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCarousel();
+        });
+    </script>
+</body>
+</html>
